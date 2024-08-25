@@ -1,0 +1,79 @@
+[gd_scene load_steps=11 format=3 uid="uid://dx3kgp1jrfjg1"]
+
+[ext_resource type="Script" path="res://scripts/enemy.gd" id="1_if8a1"]
+[ext_resource type="Texture2D" uid="uid://cygv6va07a827" path="res://assets/player_idle-01.png" id="1_p1m3t"]
+[ext_resource type="Texture2D" uid="uid://pprymfll6xm8" path="res://assets/player_idle-02.png" id="2_vsd55"]
+[ext_resource type="Texture2D" uid="uid://2hytw5mf332" path="res://assets/player_idle-03.png" id="3_g24kk"]
+[ext_resource type="Texture2D" uid="uid://ders0i18yuvii" path="res://assets/player_move-01.png" id="4_ck4vo"]
+[ext_resource type="Texture2D" uid="uid://ddhvkm02crdyg" path="res://assets/player_move-02.png" id="5_jxsg5"]
+[ext_resource type="Texture2D" uid="uid://suwb8m78h7ty" path="res://assets/player_down-01.png" id="6_ketbx"]
+[ext_resource type="Texture2D" uid="uid://h272s26e08hc" path="res://assets/player_down-02.png" id="7_rnbmv"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_oyigw"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_p1m3t")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_vsd55")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_g24kk")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_ck4vo")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_jxsg5")
+}],
+"loop": true,
+"name": &"move",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_ketbx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_rnbmv")
+}],
+"loop": true,
+"name": &"move_down",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_ck4vo")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_jxsg5")
+}],
+"loop": true,
+"name": &"move_up",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_asjry"]
+radius = 24.0
+
+[node name="player" type="Area2D"]
+script = ExtResource("1_if8a1")
+
+[node name="anim" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+sprite_frames = SubResource("SpriteFrames_oyigw")
+animation = &"move"
+autoplay = "idle"
+
+[node name="collision" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(0, 8)
+shape = SubResource("CircleShape2D_asjry")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

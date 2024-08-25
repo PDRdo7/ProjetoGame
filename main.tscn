@@ -1,0 +1,37 @@
+[gd_scene load_steps=5 format=3 uid="uid://d1qq74o1oxs0p"]
+
+[ext_resource type="Script" path="res://scripts/main.gd" id="1_6bn61"]
+[ext_resource type="PackedScene" uid="uid://dx3kgp1jrfjg1" path="res://prefabs/player.tscn" id="1_67ykh"]
+[ext_resource type="PackedScene" uid="uid://bj21vjmlpslnw" path="res://prefabs/enemy.tscn" id="2_erx45"]
+
+[sub_resource type="Curve2D" id="Curve2D_7vobu"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 480, 0, 0, 0, 0, 0, 480, 720, 0, 0, 0, 0, 0, 720, 0, 0, 0, 0, 0, 0)
+}
+point_count = 6
+
+[node name="main" type="Node2D"]
+script = ExtResource("1_6bn61")
+bug_scene = ExtResource("2_erx45")
+
+[node name="player" parent="." instance=ExtResource("1_67ykh")]
+position = Vector2(252, 325)
+
+[node name="BugTimer" type="Timer" parent="."]
+wait_time = 0.5
+
+[node name="ScoreTimer" type="Timer" parent="."]
+
+[node name="StartTimer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
+[node name="StartPosition" type="Marker2D" parent="."]
+position = Vector2(240, 360)
+
+[node name="BugPath" type="Path2D" parent="."]
+curve = SubResource("Curve2D_7vobu")
+
+[node name="BugPathLocation" type="PathFollow2D" parent="BugPath"]
+position = Vector2(0, 1)
+rotation = -1.5708
